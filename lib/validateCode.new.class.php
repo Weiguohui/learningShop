@@ -4,19 +4,17 @@ class ValidateCode {
 	private $charset; //随机因子
 	private $code; //验证码
 	private $codelen; //验证码长度
-	private $width = 80; //宽度
+	private $width = 100; //宽度
 	private $height = 30; //高度
 	private $img; //图形资源句柄
 	private $font; //指定的字体
 	private $fontsize = 20; //指定字体大小
 	private $fontcolor; //指定字体颜色
-	private $lines;
 	//构造方法初始化
-	public function __construct($charset='123456789',$codelen=3,$lines=6) {
+	public function __construct($charset='abcdefghkmnprstuvwxyzABCDEFGHKMNPRSTUVWXYZ23456789',$codelen=4) {
 		$this->font = dirname(__FILE__) . '/fonts/MixTitanica.ttf'; //注意字体路径要写对，否则显示不了图片
 		$this->charset=$charset;
 		$this->codelen=$codelen;
-		$this->lines=$lines;
 	}
 	//生成随机码
 	private function createCode() {
@@ -42,8 +40,7 @@ class ValidateCode {
 	//生成线条、雪花
 	private function createLine() {
 		//线条
-		
-		for ($i = 0; $i < $this->lines; $i++) {
+		for ($i = 0; $i < 6; $i++) {
 			$color = imagecolorallocate($this->img, mt_rand(0, 156), mt_rand(0, 156), mt_rand(0, 156));
 			imageline($this->img, mt_rand(0, $this->width), mt_rand(0, $this->height), mt_rand(0, $this->width), mt_rand(0, $this->height), $color);
 		}
